@@ -1,7 +1,7 @@
 # CRISP
 Cancer-specific RNA-editing Identification using Somatic variation Pipeline (CRISP)
-
-
+<br />
+<br />
 ### Aligining raw RNA-Seq samples
 
 We use [HISAT2](https://ccb.jhu.edu/software/hisat2/index.shtml), a fast and sensitive splice-aware aligner, to align the solid tumor cancer samples to Human Genome 19 (hg19) reference genome. (Here we assume that the proper preprocess of the RNA-Seq samples are already preformed.) 
@@ -29,8 +29,8 @@ java -jar picard.jar MarkDuplicates I=rg_added_sorted.bam O=dedupped_temp.bam  C
 ```
 java -jar picard.jar ReorderSam I=dedupped_temp.bam O=dedupped.bam  R=hg19.fa CREATE_INDEX=true
 ```
-
-
+<br />
+<br />
 ### Removing the Splice Region artifacts
 
 [GATK SplitNCigarReads](https://software.broadinstitute.org/gatk/gatkdocs/3.6-0/org_broadinstitute_gatk_tools_walkers_rnaseq_SplitNCigarReads.php) is used to remove the portion of splice site regions that might contribute to false positive variant calls. 
@@ -38,8 +38,8 @@ java -jar picard.jar ReorderSam I=dedupped_temp.bam O=dedupped.bam  R=hg19.fa CR
 ```
 java -jar GenomeAnalysisTK.jar -T SplitNCigarReads -R hg19.fa -I dedupped.bam -o split.bam -rf ReassignOneMappingQuality -RMQF 255 -RMQT 60 -U ALL
 ```
-
-
+<br />
+<br />
 ### Variant calling
 We ran [GATK HaplotypeCaller](https://software.broadinstitute.org/gatk/documentation/tooldocs/current/org_broadinstitute_gatk_tools_walkers_haplotypecaller_HaplotypeCaller.php) to identify the potential RNA variants. 
 ```
