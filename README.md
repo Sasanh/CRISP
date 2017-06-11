@@ -11,7 +11,7 @@ hisat2 --dta -x hg19_index -1 rep1.fastq -2 rep2.fastq -S output.sam
 ```
 
 
-### Sorting the aligned reads and fixing the ReadGroup in the SAM header
+#### Sorting the aligned reads and fixing the ReadGroup in the SAM header
 
 [Picard](https://broadinstitute.github.io/picard/) is used to insert the missing ReadGroup information in the SAM file and sort the aligned reads based on the genomic coordinate. The output of this phase is sotred as BAM format. 
 
