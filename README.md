@@ -9,8 +9,10 @@ We use [HISAT2](https://ccb.jhu.edu/software/hisat2/index.shtml), a fast and sen
 ```
 hisat2 --dta -x hg19_index -1 rep1.fastq -2 rep2.fastq -S output.sam
 ```
+<br />
+<br />
 
-### Preparing the aligned RNA-Seq sample for variant calling
+### Preparing the aligned RNA-Seq samples for variant calling
 [Picard](https://broadinstitute.github.io/picard/) is used to prepare the aligned sample for variant calling.
 
 #### (1) Sorting the aligned reads and fixing the ReadGroup information in the SAM header
