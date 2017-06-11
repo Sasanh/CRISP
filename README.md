@@ -31,8 +31,8 @@ java -jar picard.jar ReorderSam I=dedupped_temp.bam O=dedupped.bam  R=hg19.fa CR
 ```
 <br />
 <br />
-### Removing the Splice Region artifacts
 
+### Removing the Splice Region artifacts
 [GATK SplitNCigarReads](https://software.broadinstitute.org/gatk/gatkdocs/3.6-0/org_broadinstitute_gatk_tools_walkers_rnaseq_SplitNCigarReads.php) is used to remove the portion of splice site regions that might contribute to false positive variant calls. 
 
 ```
@@ -40,6 +40,7 @@ java -jar GenomeAnalysisTK.jar -T SplitNCigarReads -R hg19.fa -I dedupped.bam -o
 ```
 <br />
 <br />
+
 ### Variant calling
 We ran [GATK HaplotypeCaller](https://software.broadinstitute.org/gatk/documentation/tooldocs/current/org_broadinstitute_gatk_tools_walkers_haplotypecaller_HaplotypeCaller.php) to identify the potential RNA variants. 
 ```
