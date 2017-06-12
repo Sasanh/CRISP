@@ -4,8 +4,9 @@ Cancer-specific RNA-editing Identification using Somatic variation Pipeline (CRI
 ![](Figure1.png)
 <br />
 
-### Aligining raw RNA-Seq samples
 ---
+### Aligining raw RNA-Seq samples
+
 
 We use [HISAT2](https://ccb.jhu.edu/software/hisat2/index.shtml), a fast and sensitive splice-aware aligner, to align the solid tumor cancer samples to Human Genome 19 (hg19) reference genome. (Here we assume that the proper preprocess of the RNA-Seq samples are already preformed.) 
 
@@ -13,7 +14,7 @@ We use [HISAT2](https://ccb.jhu.edu/software/hisat2/index.shtml), a fast and sen
 hisat2 --dta -x hg19_index -1 rep1.fastq -2 rep2.fastq -S output.sam
 ```
 <br />
-
+---
 ### Preparing the aligned RNA-Seq samples for variant calling
 [Picard](https://broadinstitute.github.io/picard/) is used to prepare the aligned sample for variant calling.
 
@@ -34,7 +35,7 @@ java -jar picard.jar MarkDuplicates I=rg_added_sorted.bam O=dedupped_temp.bam  C
 java -jar picard.jar ReorderSam I=dedupped_temp.bam O=dedupped.bam  R=hg19.fa CREATE_INDEX=true
 ```
 <br />
-
+---
 ### Removing the Splice Region artifacts
 [GATK SplitNCigarReads](https://software.broadinstitute.org/gatk/gatkdocs/3.6-0/org_broadinstitute_gatk_tools_walkers_rnaseq_SplitNCigarReads.php) is used to remove the portion of splice site regions that might contribute to false positive variant calls. 
 
@@ -49,7 +50,7 @@ We ran [GATK HaplotypeCaller](https://software.broadinstitute.org/gatk/documenta
 java -jar GenomeAnalysisTK.jar -T HaplotypeCaller -R hg19.fa -I split.bam -dontUseSoftClippedBases -stand_call_conf 20.0 -o output_temp.vcf -nct 20 -U ALLOW_SEQ_DICT_INCOMPATIBILITY
 ```
 <br />
-
+---
 ### Variant Filtering
 
 * <b><i>Removing Clusters of variants in a short region</i></b> : Clusters of three variants falling into a window of 35 bp are removed. Moreover, QualByDepth (QD) score should be >2.0 and FisherStrand score should be <30 (Suggested by GATK pipeline) . 
@@ -62,7 +63,7 @@ bcftools filter -O v -o sample.vcf  --include 'MIN(DP)>9 && TYPE="snp"' output.v
 
 ```
 <br />
-
+---
 ### Removing variants falling into repeats and low complexity sequences
 1) Repeat regions for the desired human reference genome are obtained from [RepeatMasker database](http://www.repeatmasker.org/species/hg.html)
 2) Regions labeled "Simple_repeat", "Low_Complexity" and "Satellite" are extracted.
@@ -79,7 +80,7 @@ Output_Folder_VCF      Folder that the trimmed VCF files will be generated.
 bad_repeats.txt        Repeat regions to be removed
 ```
 <br />
-
+---
 ### Keeping the variants located in unique genomic regions
 1) Econde Uniqueness track for genomic regions of 35 bp (bigwig file) is obtained from [UCSC annotations download](http://hgdownload.cse.ucsc.edu/downloads.html)
 2) The uniqueness track file is converted into bedgraph and unique regions with score of "1" are extracted
@@ -96,7 +97,7 @@ Output_Folder_VCF      Output Folder that the trimmed VCF files will be generate
 unique.bed.txt         Unique regions in the genome with uniqueness score of "1"
 ```
 <br />
-
+---
 ### Removing germline and somatic DNA variations (SNPs)  
 1) Obtaining germline and somatic mutations (in VCF format) from dbSNP, 1000Genomes, Cosmic, ... (ftp://ftp.ensembl.org/pub/release-89/variation/vcf/homo_sapiens/)
 2) Obtaining the cancer specific mutations from The Cancer Genome Atlas (TCGA) (https://portal.gdc.cancer.gov) 
