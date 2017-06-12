@@ -47,7 +47,7 @@ java -jar GenomeAnalysisTK.jar -T HaplotypeCaller -R hg19.fa -I split.bam -dontU
 ```
 ### Variant Filtering
 
-Clusters of three variants falling into a window of 35 bp are removed. Moreover, QualByDepth (QD) score should be >2.0 and FisherStrand score should be <30 (Suggested by GATK pipeline) . 
+* <b><i>Removing Clusters of variants in a short region</i></b> : Clusters of three variants falling into a window of 35 bp are removed. Moreover, QualByDepth (QD) score should be >2.0 and FisherStrand score should be <30 (Suggested by GATK pipeline) . 
 ```
 java -jar GenomeAnalysisTK.jar -T VariantFiltration -R hg19.fa -V output_temp.vcf -window 35 -cluster 3 -filterName FS -filter "FS > 30.0" -filterName QD -filter "QD < 2.0" -o output.vcf -U ALLOW_SEQ_DICT_INCOMPATIBILITY
 ```
