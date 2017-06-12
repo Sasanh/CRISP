@@ -1,5 +1,6 @@
 # CRISP
 Cancer-specific RNA-editing Identification using Somatic variation Pipeline (CRISP)
+![](Figure1.png)
 <br />
 
 ### Aligining raw RNA-Seq samples
