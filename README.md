@@ -58,6 +58,8 @@ java -jar GenomeAnalysisTK.jar -T VariantFiltration -R hg19.fa -V output_temp.vc
 bcftools filter -O v -o sample.vcf  --include 'MIN(DP)>9 && TYPE="snp"' output.vcf
 
 ```
+<br />
+
 ### Removing variants falling into repeats and low complexity sequences
 1) Repeat regions for the desired human reference genome are obtained from [RepeatMasker database](http://www.repeatmasker.org/species/hg.html)
 2) Regions labeled "Simple_repeat", "Low_Complexity" and "Satellite" are extracted.
