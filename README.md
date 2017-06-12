@@ -45,4 +45,9 @@ We ran [GATK HaplotypeCaller](https://software.broadinstitute.org/gatk/documenta
 ```
 java -jar GenomeAnalysisTK.jar -T HaplotypeCaller -R hg19.fa -I split.bam -dontUseSoftClippedBases -stand_call_conf 20.0 -o output_temp.vcf -nct 20 -U ALLOW_SEQ_DICT_INCOMPATIBILITY
 ```
+### Variant Filtering
 
+Clusters of three variants falling into a window of 35 bp are removed. Moreover, QualByDepth (QD) score should be >2.0 and FisherStrand score should be <30 (Suggested by GATK pipeline) . 
+```
+java -jar GenomeAnalysisTK.jar -T VariantFiltration -R hg19.fa -V output_temp.vcf -window 35 -cluster 3 -filterName FS -filter "FS > 30.0" -filterName QD -filter "QD < 2.0" -o output.vcf -U ALLOW_SEQ_DICT_INCOMPATIBILITY
+```
