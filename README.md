@@ -89,7 +89,7 @@ java -jar Include_Uniqe_Regions_Only.jar Input_Folder_VCF Output_Folder_VCF uniq
 
 usage:
 Input_Folder_VCF       Folder containing input VCF files
-Output_Folder_VCF      Folder that the trimmed VCF files will be generated.
+Output_Folder_VCF      Output Folder that the trimmed VCF files will be generated.
 unique.bed.txt         Unique regions in the genome with uniqueness score of "1"
 ```
 <br />
@@ -97,3 +97,11 @@ unique.bed.txt         Unique regions in the genome with uniqueness score of "1"
 ### Removing germline and somatic DNA variations (SNPs)  
 1) Obtaining germline and somatic mutations (in VCF format) from dbSNP, 1000Genomes, Cosmic, ... (ftp://ftp.ensembl.org/pub/release-89/variation/vcf/homo_sapiens/)
 2) Obtaining the cancer specific mutations from The Cancer Genome Atlas (TCGA) (https://portal.gdc.cancer.gov) 
+```
+java -jar Remove_SNP.jar Variants_Folder Input_Folder_VCF Output_Folder_VCF
+
+usage:
+Variants_Folder        Folder containing somatic and germline DNA variants (VCF format)
+Input_Folder_VCF       Folder containing input VCF files
+Output_Folder_VCF      Output Folder that the trimmed VCF files will be generated.
+```
