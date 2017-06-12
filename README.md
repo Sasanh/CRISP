@@ -75,3 +75,20 @@ Input_Folder_VCF       Folder containing input VCF files
 Output_Folder_VCF      Folder that the trimmed VCF files will be generated.
 bad_repeats.txt        Repeat regions to be removed
 ```
+<br />
+
+### Keeping the variants falling into unique genomic regions
+1) Econde Uniqueness track for genomic regions of 35 bp is obtained from [UCSC annotations download](http://hgdownload.cse.ucsc.edu/downloads.html)
+2) Regions labeled "Simple_repeat", "Low_Complexity" and "Satellite" are extracted.
+```
+awk '$11=="Simple_repeat" || $11=="Low_complexity" || $11=="Satellite"{print $5,$6,$7,$11}' hg19.fa.out > bad_repeats.txt
+```
+3) Removing variants overlap with repeat regions extracted from the previous step. 
+```
+java -jar Trim_RepeatMasker.jar Input_Folder_VCF Output_Folder_VCF bad_repeats.txt
+
+usage:
+Input_Folder_VCF       Folder containing input VCF files
+Output_Folder_VCF      Folder that the trimmed VCF files will be generated.
+bad_repeats.txt        Repeat regions to be removed
+```
