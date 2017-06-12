@@ -77,18 +77,23 @@ bad_repeats.txt        Repeat regions to be removed
 ```
 <br />
 
-### Keeping the variants falling into unique genomic regions
-1) Econde Uniqueness track for genomic regions of 35 bp is obtained from [UCSC annotations download](http://hgdownload.cse.ucsc.edu/downloads.html)
-2) Regions labeled "Simple_repeat", "Low_Complexity" and "Satellite" are extracted.
+### Keeping the variants located in unique genomic regions
+1) Econde Uniqueness track for genomic regions of 35 bp (bigwig file) is obtained from [UCSC annotations download](http://hgdownload.cse.ucsc.edu/downloads.html)
+2) The uniqueness track file is converted into bedgraph and unique regions with score of "1" are extracted
 ```
-awk '$11=="Simple_repeat" || $11=="Low_complexity" || $11=="Satellite"{print $5,$6,$7,$11}' hg19.fa.out > bad_repeats.txt
+awk '$4 ==1' wgEncodeDukeMapabilityUniqueness35bp.bedGraph > unique.bed
 ```
-3) Removing variants overlap with repeat regions extracted from the previous step. 
+3) Retaining the variants overlapped with unique regions.  
 ```
-java -jar Trim_RepeatMasker.jar Input_Folder_VCF Output_Folder_VCF bad_repeats.txt
+java -jar Include_Uniqe_Regions_Only.jar Input_Folder_VCF Output_Folder_VCF unique.bed
 
 usage:
 Input_Folder_VCF       Folder containing input VCF files
 Output_Folder_VCF      Folder that the trimmed VCF files will be generated.
-bad_repeats.txt        Repeat regions to be removed
+unique.bed.txt         Unique regions in the genome with uniqueness score of "1"
 ```
+<br />
+
+### Removing germline and somatic DNA variations (SNPs)  
+1) Obtaining germline and somatic mutations (in VCF format) from dbSNP, 1000Genomes, Cosmic, ... (ftp://ftp.ensembl.org/pub/release-89/variation/vcf/homo_sapiens/)
+2) Obtaining the cancer specific mutations from The Cancer Genome Atlas (TCGA) (https://portal.gdc.cancer.gov) 
