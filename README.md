@@ -64,3 +64,10 @@ bcftools filter -O v -o sample.vcf  --include 'MIN(DP)>9 && TYPE="snp"' output.v
 ```
 awk '$11=="Simple_repeat" || $11=="Low_complexity" || $11=="Satellite"{print $5,$6,$7,$11}' hg19.fa.out > bad_repeats.txt
 ```
+3) Removing variants overlap with repeat regions extracted from the previous step. 
+```
+java -jar Trim_RepeatMasker.jar Input_Folder_VCF Output_Folder_VCF bad_repeats.txt
+Input_Folder_VCF       Folder containing input VCF files
+Output_Folder_VCF      Folder that the trimmed VCF files will be generated.
+bad_repeats.txt        Repeat regions to be removed
+```
