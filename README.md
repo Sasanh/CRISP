@@ -53,8 +53,14 @@ java -jar GenomeAnalysisTK.jar -T HaplotypeCaller -R hg19.fa -I split.bam -dontU
 ```
 java -jar GenomeAnalysisTK.jar -T VariantFiltration -R hg19.fa -V output_temp.vcf -window 35 -cluster 3 -filterName FS -filter "FS > 30.0" -filterName QD -filter "QD < 2.0" -o output.vcf -U ALLOW_SEQ_DICT_INCOMPATIBILITY
 ```
-* <b><i>Removing variants with 10 reads support</i></b> : [BCFTOOLS](https://samtools.github.io/bcftools/) is used to only include the single nucleotide variants with at least 10 total reads supporting the base. 
+* <b><i>Removing variants with 10 reads support</i></b> : [Bcftools](https://samtools.github.io/bcftools/) is used to only include the single nucleotide variants with at least 10 total reads supporting the base. 
 ```
 bcftools filter -O v -o sample.vcf  --include 'MIN(DP)>9 && TYPE="snp"' output.vcf
 
+```
+### Removing variants falling into repeats and low complexity sequences
+1) Repeat regions for the desired human reference genome are obtained from [RepeatMasker database](http://www.repeatmasker.org/species/hg.html)
+2) Regions labeled "Simple_repeat", "Low_Complexity" and "Satellite" are extracted.
+```
+awk '$11=="Simple_repeat" || $11=="Low_complexity" || $11=="Satellite"{print $5,$6,$7,$11}' hg19.fa.out > bad_repeats.txt
 ```
