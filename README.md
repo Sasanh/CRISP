@@ -117,3 +117,12 @@ Variants_Folder        Folder containing somatic and germline DNA variants (VCF 
 Input_Folder_VCF       Folder containing input VCF files
 Output_Folder_VCF      Output Folder that the trimmed VCF files will be generated.
 ```
+<br />
+---
+### Performance
+Performance of the CRISP pipeline by applying the inclusive filters. 
+<br />
+
+![](Figure2.png)
+<br />
+
