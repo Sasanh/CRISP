@@ -125,6 +125,6 @@ Output_Folder_VCF      Output Folder that the trimmed VCF files will be generate
 Performance of the CRISP pipeline by applying the inclusive filters. 
 <br />
 
-![](Figure2.png)
+![](CRIPS_Performance.png)
 <br />
 
